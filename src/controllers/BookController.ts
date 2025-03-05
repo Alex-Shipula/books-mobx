@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { bookStore, BookStore } from '../stores/BookStore';
-import { Book } from '../models/book';
+import { Book, BookVisibility } from '../models/book';
 import { USER_ID } from '../services/api';
 
 export class BookСontroller {
@@ -8,6 +8,7 @@ export class BookСontroller {
   author = '';
   ownerId = USER_ID;
   formError: string | null = null;
+  isPrivate = false;
 
   constructor(private bookStore: BookStore) {
     makeAutoObservable(this);
@@ -25,11 +26,20 @@ export class BookСontroller {
     this.ownerId = ownerId;
   }
 
+  setPrivate(isPrivate: boolean) {
+    this.isPrivate = isPrivate;
+  }
+
+  setVisibility(visibility: BookVisibility) {
+    this.bookStore.setVisibility(visibility);
+  }
+
   resetForm() {
     this.name = '';
     this.author = '';
     this.ownerId = '';
     this.formError = null;
+    this.isPrivate = false;
   }
 
   validateForm(): boolean {
@@ -61,7 +71,8 @@ export class BookСontroller {
       id: Number(new Date()),
       name: this.name.trim(),
       author: this.author.trim(),
-      ownerId: this.ownerId
+      ownerId: this.ownerId,
+      private: this.isPrivate
     };
 
     const result = await this.bookStore.addBook(bookData);
@@ -79,6 +90,18 @@ export class BookСontroller {
 
   get books() {
     return this.bookStore.books;
+  }
+
+  get privateBooks() {
+    return this.bookStore.privateBooks;
+  }
+
+  get visibility() {
+    return this.bookStore.visibility;
+  }
+
+  get privateBookCount() {
+    return this.bookStore.privateBookCount;
   }
 
   get isLoading() {

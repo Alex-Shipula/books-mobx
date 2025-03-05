@@ -8,9 +8,10 @@ const api = axios.create({
 });
 
 export const BookService = {
-  async getBooks(): Promise<Book[]> {
+  async getBooks(privateOnly: boolean = false): Promise<Book[]> {
     try {
-      const response = await api.get<Book[]>(`/books/${USER_ID}`);
+      const endpoint = privateOnly ? `/books/${USER_ID}/private` : `/books/${USER_ID}`;
+      const response = await api.get<Book[]>(endpoint);
       return response.data;
     } catch (error) {
       console.error('Error fetching books:', error);

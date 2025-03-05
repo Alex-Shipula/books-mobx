@@ -105,4 +105,27 @@ describe('BookStore', () => {
       expect(store.books).toEqual([]);
     });
   });
+
+  describe('computed properties', () => {
+    it('should return visible books based on visibility', () => {
+      store.books = [...books];
+      store.privateBooks = [books[0], books[1]];
+
+      store.visibility = 'all';
+      expect(store.visibleBooks).toEqual(books);
+
+      store.visibility = 'private';
+      expect(store.visibleBooks).toEqual([books[0], books[1]]);
+    });
+
+    it('should return the count of private books', () => {
+      store.privateBooks = [books[0], books[1]];
+
+      expect(store.privateBookCount).toBe(2);
+
+      store.privateBooks = [];
+
+      expect(store.privateBookCount).toBe(0);
+    });
+  });
 });

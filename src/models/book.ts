@@ -5,6 +5,7 @@ export interface Book {
   name: string;
   ownerId: string;
   author: string;
+  private?: boolean;
 }
 
 export type MockedBookService = {
@@ -12,3 +13,5 @@ export type MockedBookService = {
   createBook: ReturnType<typeof vi.fn>;
   deleteBook: ReturnType<typeof vi.fn>;
 };
+
+export type BookVisibility = 'all' | 'private';

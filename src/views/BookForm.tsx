@@ -29,7 +29,7 @@ const BookForm: React.FC<BookFormProps> = observer(({ presenter }) => {
             placeholder="Enter book title"
           />
         </div>
-        
+
         <div className="mb-4">
           <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-1">
             Author
@@ -43,7 +43,7 @@ const BookForm: React.FC<BookFormProps> = observer(({ presenter }) => {
             placeholder="Enter author name"
           />
         </div>
-        
+
         <div className="mb-4">
           <label htmlFor="ownerId" className="block text-sm font-medium text-gray-700 mb-1">
             Owner
@@ -57,19 +57,31 @@ const BookForm: React.FC<BookFormProps> = observer(({ presenter }) => {
             placeholder="Enter publication ownerId"
           />
         </div>
-        
+
+        <div className="mb-4">
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={presenter.isPrivate}
+              onChange={(e) => presenter.setPrivate(e.target.checked)}
+              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 h-4 w-4"
+            />
+            <span className="ml-2 text-sm text-gray-700">Make this book private</span>
+          </label>
+        </div>
+
         {presenter.formError && (
           <div className="mb-4 p-2 bg-red-100 text-red-700 rounded-md">
             {presenter.formError}
           </div>
         )}
-        
+
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
           disabled={presenter.isLoading}
         >
-          {presenter.isLoading ? 'Adding...' : 'Add Book'}
+          Add Book
         </button>
       </form>
     </div>

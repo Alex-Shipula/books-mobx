@@ -110,16 +110,17 @@ describe('BookСontroller', () => {
         author: 'Test Author',
         ownerId: 'owner'
       };
-      
+
       bookStore.addBook = vi.fn().mockResolvedValue(mockBook);
-      
+
       const result = await presenter.addBook();
-      
+
       expect(bookStore.addBook).toHaveBeenCalledWith({
         id: expect.any(Number),
         name: 'Test Book',
         author: 'Test Author',
-        ownerId: 'owner'
+        ownerId: 'owner',
+        private: false
       });
       expect(result).toEqual(mockBook);
 
@@ -135,7 +136,7 @@ describe('BookСontroller', () => {
       bookStore.addBook = vi.fn();
 
       const result = await presenter.addBook();
-      
+
       expect(bookStore.addBook).not.toHaveBeenCalled();
       expect(result).toBeNull();
       expect(presenter.formError).toBe('Title is required');
@@ -145,7 +146,7 @@ describe('BookСontroller', () => {
       bookStore.fetchBooks = vi.fn();
 
       await presenter.loadBooks();
-      
+
       expect(bookStore.fetchBooks).toHaveBeenCalled();
     });
   });
@@ -156,16 +157,16 @@ describe('BookСontroller', () => {
         { id: 1, name: 'Book 1', author: 'Author 1', ownerId: 'owner' },
         { id: 2, name: 'Book 2', author: 'Author 2', ownerId: 'owner' }
       ]
-      
+
       bookStore.books = mockBooks;
-      
+
       expect(presenter.books).toEqual(mockBooks);
     });
 
     it('should return loading state from the store', () => {
       bookStore.isLoading = true;
       expect(presenter.isLoading).toBe(true);
-      
+
       bookStore.isLoading = false;
       expect(presenter.isLoading).toBe(false);
     });
@@ -173,9 +174,19 @@ describe('BookСontroller', () => {
     it('should return error from the store', () => {
       bookStore.error = 'Test error';
       expect(presenter.error).toBe('Test error');
-      
+
       bookStore.error = null;
       expect(presenter.error).toBeNull();
+    });
+  });
+
+  describe('Visibility', () => {
+    it('should return visibility from the store', () => {
+      bookStore.visibility = 'all';
+      expect(presenter.visibility).toBe('all');
+
+      bookStore.visibility = 'private';
+      expect(presenter.visibility).toBe('private');
     });
   });
 });
