@@ -1,8 +1,12 @@
-Start
-npm install
-npm run dev
+## Start
 
-[localhost](http://localhost:5173/)
+`npm install`
 
-Testing
-npm run test
+`npm run dev`
+
+Open [http://localhost:5173](http://localhost:5173)
+
+
+## Testing
+
+`npm run test`
