@@ -160,7 +160,7 @@ describe('BookСontroller', () => {
 
       bookStore.books = mockBooks;
 
-      expect(presenter.books).toEqual(mockBooks);
+      expect(presenter.getBooks()).toEqual(mockBooks);
     });
 
     it('should return loading state from the store', () => {

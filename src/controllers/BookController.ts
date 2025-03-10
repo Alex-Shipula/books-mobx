@@ -88,11 +88,11 @@ export class BookСontroller {
     return this.bookStore.fetchBooks();
   }
 
-  get books() {
+  getBooks() {
     return this.bookStore.books;
   }
 
-  get privateBooks() {
+  getPrivateBooks() {
     return this.bookStore.privateBooks;
   }
 

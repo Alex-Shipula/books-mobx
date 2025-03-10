@@ -11,7 +11,7 @@ const BookList: React.FC<BookListProps> = observer(({ presenter }) => {
     <div className="bg-white p-6 rounded-lg shadow-md w-fit">
       <h2 className="text-xl font-bold mb-4">Book List</h2>
 
-      {!presenter.isLoading && presenter.books.length === 0 && (
+      {!presenter.isLoading && presenter.getBooks().length === 0 && (
         <p className="text-gray-500">No books available. Add your first book!</p>
       )}
 
@@ -21,7 +21,7 @@ const BookList: React.FC<BookListProps> = observer(({ presenter }) => {
         </div>
       )}
 
-      {presenter.books.length > 0 && (
+      {presenter.getBooks().length > 0 && (
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -38,7 +38,7 @@ const BookList: React.FC<BookListProps> = observer(({ presenter }) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {presenter.visibility === 'all' && presenter.books.map((book) => (
+              {presenter.visibility === 'all' && presenter.getBooks().map((book) => (
                 <tr key={book.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     {book.name}
@@ -51,7 +51,7 @@ const BookList: React.FC<BookListProps> = observer(({ presenter }) => {
                   </td>
                 </tr>
               ))}
-              {presenter.visibility === 'private' && presenter.privateBooks.map((book) => (
+              {presenter.visibility === 'private' && presenter.getPrivateBooks().map((book) => (
                 <tr key={book.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     {book.name}

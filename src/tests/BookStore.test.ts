@@ -1,7 +1,13 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { BookStore } from '../stores/BookStore';
 import { BookService } from '../services/api';
-import { Book, MockedBookService } from '../models/book';
+import { Book } from '../models/book';
+
+export type MockedBookService = {
+  getBooks: ReturnType<typeof vi.fn>;
+  createBook: ReturnType<typeof vi.fn>;
+  deleteBook: ReturnType<typeof vi.fn>;
+};
 
 const books: Book[] = [
   { id: 1, name: 'Book 1', author: 'Author', ownerId: 'owner' },
